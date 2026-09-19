@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #424242;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  background-color: black;
+  color: rgb(50, 47, 52);
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  width: 100%;
+}
+h1 {
+  font-size: 40px;
+  font-family: monospace;
+}
+.githubButton {
+  width: 32px;
+  height: 32px;
+}
+footer {
+  border: 30px black;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100px;
+  color: rgb(216, 216, 216);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.209);
+}
+h4 {
+  margin-top: 10px;
+}
+nav {
+  gap: 100px;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  font-family: 'Courier New', Courier, monospace;
+  color: #424242;
+  font-size: medium;
+
+}
+.navLink{
+  text-decoration: none;
+  color: rgb(216, 215, 211);
+  font-weight: 500;
+  border: 20px;
+}
+.navLink:hover{
+  color: aliceblue;
+}
+
