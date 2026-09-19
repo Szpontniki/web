@@ -1,5 +1,5 @@
 import './Upload.css'
-import { useState, ChangeEvent, DragEvent } from 'react'
+import { useState, type ChangeEvent, type DragEvent } from 'react'
 
 export default function Upload() {  
         // FUNKCJE UPLOADU
@@ -8,7 +8,7 @@ export default function Upload() {
         // selectedImage przechowuje plik -> czyli obiekt typu File ( to z use state określa że albo File albo nic z tego co to rozumiem) 
         const [selectedImage, setSelectedImage] = useState<File | null>(null);
         // previewUrl przechowuje string który jest tymczasowym adresem URL wygenerowanym przez przeglądarke dla wyświetlania obrazu
-        const [pixelArtUrl, setPixelArtUrl] = useState<String | null>(null);
+        const [pixelArtUrl, setPixelArtUrl] = useState<string | null>(null);
         const [pixelArtBlob, setPixelArtBlob] = useState<Blob | null>(null); // pixelArtBlob do wysłania na serwer
         const [isUploading, setIsUploading] = useState(false); // Do wysłania na serwer
 
@@ -38,12 +38,6 @@ export default function Upload() {
                 const pixelatedDataUrl = canvas.toDataURL('image/png');
                 setPixelArtUrl(pixelatedDataUrl);
 
-                // Zamiana canvas na bloba gotowego do wysłania na mikrokontroler
-                canvas.toBlob((blob) => {
-                    if(blob) { 
-                        setPixelArtBlob(blob);
-                    }
-                }, 'image/png');
             };
         };
             
