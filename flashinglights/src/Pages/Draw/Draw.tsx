@@ -1,5 +1,22 @@
 import './Draw.css'
 import { useState } from 'react';
+import { displayColorPixels } from "../../generated-api-client/generated";
+
+function HEXtoRGB(hex: string): [number, number, number] {
+    hex = hex.replace(/^#/, "");
+
+    if (hex.length === 3) {
+        hex = hex.split("").map(c => c + c).join("");
+    }
+
+    const num = parseInt(hex, 16);
+
+    return [
+        (num >> 16) & 255,
+        (num >> 8) & 255,
+        num & 255
+    ];
+}
 
 export default function Draw() {
     const [gridSize, setGridSize] = useState<number>(32);
@@ -16,6 +33,22 @@ export default function Draw() {
         const newPixels = [...pixels]; // te ... tworzy kopie tablicy pixels
         newPixels[index] = color;
         setPixels(newPixels);
+
+        let requestBody = {
+            pixels: [] as { x: number, y: number, color: [number, number, number] }[]
+        };
+
+        let i = 0;
+        for (const p of pixels) {
+            const x = i - gridSize * Math.floor(i / gridSize);
+            const y = Math.floor(i / gridSize);
+
+            requestBody.pixels.push({ x, y, color: HEXtoRGB(p) });
+
+            i++;
+        }
+
+        displayColorPixels(requestBody);
     };
 
     // Reset siatki
