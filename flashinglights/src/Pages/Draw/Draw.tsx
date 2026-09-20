@@ -48,7 +48,6 @@ export default function Draw() {
             i++;
         }
 
-        console.log(JSON.stringify(requestBody));
         displayColorPixels(requestBody);
     };
 
