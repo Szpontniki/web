@@ -3,7 +3,7 @@ import { defineConfig } from "orval";
 export default defineConfig({
   api: {
     input: {
-      target: "../api-schema/openapi.yaml",
+      target: "./api-schema/openapi.yaml",
       parserOptions: {
         externalRefs: {
           allow: ["*"],
