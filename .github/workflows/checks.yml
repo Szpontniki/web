@@ -1,0 +1,23 @@
+name: "Checks"
+on:
+  push:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  build-check:
+    name: 🗿 Build Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v3
+
+      - name: Set up the project
+        uses: nix develop -c "npm install" && nix develop -c "npm run init"
+
+      - name: Build
+        run: nix develop -c "npm run build"
