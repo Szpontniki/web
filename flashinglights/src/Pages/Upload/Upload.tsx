@@ -1,5 +1,6 @@
 import './Upload.css'
 import { useState, type ChangeEvent, type DragEvent } from 'react'
+import { displayColorPixels } from "../../generated-api-client/generated";
 
 export default function Upload() {  
         // FUNKCJE UPLOADU
@@ -15,6 +16,31 @@ export default function Upload() {
 
         // Funkcja zamieniająca na pixelart
         const processToPixelArt = (file: File) => {
+            const canvasToPixelArray = (ctx: CanvasRenderingContext2D) => {
+                const imageData = ctx.getImageData(0, 0, 32, 32);
+                const data = imageData.data;
+                const requestBody = {
+                    pixels: [] as { x: number; y: number; color: [number, number, number] }[]
+                };
+                for (let y = 0; y < 32; y++) {
+                    for (let x = 0; x < 32; x++) {
+                        const index = (y * 32 + x) * 4;
+
+                        const r = data[index];
+                        const g = data[index + 1]; 
+                        const b = data[index + 2];
+                            
+                        requestBody.pixels.push({
+                            x: x,
+                            y: y,
+                            color: [r, g, b]
+                        });
+                    }
+                }
+                
+                displayColorPixels(requestBody);
+            }
+
             const img = new Image();
             img.src = URL.createObjectURL(file);
 
@@ -38,7 +64,12 @@ export default function Upload() {
                 const pixelatedDataUrl = canvas.toDataURL('image/png');
                 setPixelArtUrl(pixelatedDataUrl);
 
+                canvasToPixelArray(ctx);
+
+            
             };
+
+            
         };
             
 
@@ -107,7 +138,6 @@ export default function Upload() {
                             <p>Nazwa pliku: {selectedImage?.name}</p>
                     </div>
                 )}
-
 
             </main>
 
