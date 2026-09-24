@@ -1,8 +1,6 @@
 name: "Checks"
 on:
   push:
-    branches: [master]
-  pull_request:
   workflow_call:
   workflow_dispatch:
 
@@ -19,7 +17,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v3
 
       - name: Set up the project
-        uses: nix develop -c "npm install" && nix develop -c "npm run init"
+        run: nix develop -c "npm install" && nix develop -c "npm run init"
 
       - name: Build
         run: nix develop -c "npm run build"
