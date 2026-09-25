@@ -39,7 +39,7 @@ export default function Draw() {
         };
 
         let i = 0;
-        for (const p of pixels) {
+        for (const p of newPixels) {
             const x = i - gridSize * Math.floor(i / gridSize);
             const y = Math.floor(i / gridSize);
 
@@ -53,7 +53,26 @@ export default function Draw() {
 
     // Reset siatki
     const resetGrid = () => {
+        let requestBody = {
+            pixels: [] as { x: number, y: number, color: [number, number, number] }[]
+        };
+
+        let i = 0;
+        for (const p of pixels) {
+            const x = i - gridSize * Math.floor(i / gridSize);
+            const y = Math.floor(i / gridSize);
+
+            requestBody.pixels.push({ x, y, color: [255, 255, 255]});
+
+            i++;
+        }
+
+        // This sends the api info to reset the whole grid to white, it wont wait untill the first pixel is clicked
+        displayColorPixels(requestBody);
+
+        // Resets the grid to zero on the user side
         setPixels(Array(gridSize * gridSize).fill('#ffffff'));
+        
     };
     const downloadPNG = () => { // DO PÓŹNIEJSZEJ ZAMIANY W WYSLANIE
         const canvas = document.createElement('canvas');
