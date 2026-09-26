@@ -1,7 +1,6 @@
 import './Draw.css'
-import { useState } from 'react';
-import { displayColorPixels } from "../../generated-api-client/generated";
-
+import { useState, useEffect } from 'react';
+import { displayColorPixels, getDisplayState } from "../../generated-api-client/generated";
 function HEXtoRGB(hex: string): [number, number, number] {
     hex = hex.replace(/^#/, "");
 
@@ -18,37 +17,55 @@ function HEXtoRGB(hex: string): [number, number, number] {
     ];
 }
 
+function RGBtoHEX(r: number, g: number, b: number): string {
+    return "#" + [r, g, b].map(x => x.toString(16).padStart(2, "0")).join("");
+}
+
+
 export default function Draw() {
     const [gridSize, setGridSize] = useState<number>(32);
-    const [color, setColor] = useState<string>('#000000');
+    const [color, setColor] = useState<string>("#000000");
     const [isDrawing, setIsDrawing] = useState<boolean>(false);
-
-    // Tablica kolorów komórek
     const [pixels, setPixels] = useState<string[]>(
-        Array(32 * 32).fill('#ffffff')
+        Array(32 * 32).fill("#ffffff")
     );
+
+    useEffect(() => {
+
+        getDisplayState().then((response) => {
+            if(!response) return;
+            const responsePixels = (response as any)?.data 
+            if (!responsePixels?.length) return;
+            const newGrid = Array(gridSize * gridSize).fill("#ffffff").map((_, index) => {
+                const x = index % gridSize;
+                const y = Math.floor(index / gridSize);
+                const found = responsePixels.find((p: any) => p.x === x && p.y === y);
+                const [r, g, b] = found.color;
+                return RGBtoHEX(r, g, b);
+            });
+            setPixels(newGrid);
+    });
+    }, [gridSize]);
+
+  
+    
    
     // Zmiana koloru konkretnego pixela
     const paintCell = (index: number) => {
         const newPixels = [...pixels]; // te ... tworzy kopie tablicy pixels
         newPixels[index] = color;
         setPixels(newPixels);
-
-        let requestBody = {
-            pixels: [] as { x: number, y: number, color: [number, number, number] }[]
-        };
-
-        let i = 0;
-        for (const p of newPixels) {
-            const x = i - gridSize * Math.floor(i / gridSize);
-            const y = Math.floor(i / gridSize);
-
-            requestBody.pixels.push({ x, y, color: HEXtoRGB(p) });
-
-            i++;
-        }
-
-        displayColorPixels(requestBody);
+        const x = index % gridSize;
+        const y = Math.floor(index / gridSize);
+        displayColorPixels({
+            pixels: [
+                {
+                    x,
+                    y,
+                    color: HEXtoRGB(color)
+                }
+            ]
+        });
     };
 
     // Reset siatki
@@ -136,6 +153,7 @@ export default function Draw() {
                                 onMouseEnter={() => {
                                     if (isDrawing) paintCell(index);
                                 }}
+                                
                             />
                         ))}
                     </section>
