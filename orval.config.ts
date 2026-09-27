@@ -1,9 +1,9 @@
 import { defineConfig } from "orval";
 
 export default defineConfig({
-  api: {
+  auxiliary: {
     input: {
-      target: "./api-schema/firmwareg/openapi.yaml",
+      target: "./api-schema/auxiliary/openapi.yaml",
       parserOptions: {
         externalRefs: {
           allow: ["*"],
@@ -11,7 +11,24 @@ export default defineConfig({
       },
     },
     output: {
-      target: "./src/generated-api-client/generated.ts",
+      target: "./src/api/auxiliary/generated.ts",
+      client: "react-query",
+      baseUrl: "/"
+    },
+  },
+  
+
+  firmare: {
+    input: {
+      target: "./api-schema/firmware/openapi.yaml",
+      parserOptions: {
+        externalRefs: {
+          allow: ["*"],
+        }
+      },
+    },
+    output: {
+      target: "./src/api/firmware/generated.ts",
       client: "react-query",
       baseUrl: "/"
     },
