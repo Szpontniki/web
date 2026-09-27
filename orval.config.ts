@@ -13,7 +13,7 @@ export default defineConfig({
     output: {
       target: "./src/generated-api-client/generated.ts",
       client: "react-query",
-      baseUrl: "http://localhost:3000"
+      baseUrl: "/"
     },
   },
 });

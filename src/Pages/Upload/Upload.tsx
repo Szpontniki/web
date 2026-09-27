@@ -10,13 +10,11 @@ export default function Upload() {
         const [selectedImage, setSelectedImage] = useState<File | null>(null);
         // previewUrl przechowuje string który jest tymczasowym adresem URL wygenerowanym przez przeglądarke dla wyświetlania obrazu
         const [pixelArtUrl, setPixelArtUrl] = useState<string | null>(null);
-        const [pixelArtBlob, setPixelArtBlob] = useState<Blob | null>(null); // pixelArtBlob do wysłania na serwer
-        const [isUploading, setIsUploading] = useState(false); // Do wysłania na serwer
 
 
         // Funkcja zamieniająca na pixelart
         const processToPixelArt = (file: File) => {
-            const canvasToPixelArray = (ctx: CanvasRenderingContext2D) => {
+            const canvasToPixelArray = async (ctx: CanvasRenderingContext2D) => {
                 const imageData = ctx.getImageData(0, 0, 32, 32);
                 const data = imageData.data;
                 const requestBody = {
@@ -38,7 +36,20 @@ export default function Upload() {
                     }
                 }
                 
-                displayColorPixels(requestBody);
+                try {
+                    const response = await displayColorPixels(requestBody);
+
+                    console.log(
+                        "[UPLOAD] ESP32 response:",
+                        response
+                    );
+
+                    } catch (error) {
+                        console.error(
+                      "[UPLOAD] SEND ERROR:",
+                     error
+                    );
+                }   
             }
 
             const img = new Image();

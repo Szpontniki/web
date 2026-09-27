@@ -23,7 +23,7 @@ function RGBtoHEX(r: number, g: number, b: number): string {
 
 
 export default function Draw() {
-    const [gridSize, setGridSize] = useState<number>(32);
+    const [gridSize] = useState<number>(32);
     const [color, setColor] = useState<string>("#000000");
     const [isDrawing, setIsDrawing] = useState<boolean>(false);
     const [pixels, setPixels] = useState<string[]>(
@@ -32,10 +32,10 @@ export default function Draw() {
 
     useEffect(() => {
 
-        getDisplayState().then((response) => {
-            if(!response) return;
+        const loadCurrentState = async () => {
+            
+            const response = await getDisplayState();
             const responsePixels = (response as any)?.data 
-            if (!responsePixels?.length) return;
             const newGrid = Array(gridSize * gridSize).fill("#ffffff").map((_, index) => {
                 const x = index % gridSize;
                 const y = Math.floor(index / gridSize);
@@ -44,8 +44,10 @@ export default function Draw() {
                 return RGBtoHEX(r, g, b);
             });
             setPixels(newGrid);
-    });
-    }, [gridSize]);
+        }
+        loadCurrentState();
+    }, []);
+
 
   
     
@@ -70,17 +72,15 @@ export default function Draw() {
 
     // Reset siatki
     const resetGrid = () => {
-        let requestBody = {
-            pixels: [] as { x: number, y: number, color: [number, number, number] }[]
-        };
-
-
-        // This sends the api info to reset the whole grid to white, it wont wait untill the first pixel is clicked
-        displayColorPixels(requestBody);
-
-        // Resets the grid to zero on the user side
-        setPixels(Array(gridSize * gridSize).fill('#ffffff'));
-        
+        const newPixels = Array(gridSize * gridSize).fill("#ffffff") // te ... tworzy kopie tablicy pixels
+        setPixels(newPixels);
+        displayColorPixels({
+            pixels: newPixels.map((pixel, index) => ({
+                x: index % gridSize,
+                y: Math.floor(index / gridSize),
+                color: (HEXtoRGB(pixel))
+            })) 
+        });
     };
     const downloadPNG = () => { // DO PÓŹNIEJSZEJ ZAMIANY W WYSLANIE
         const canvas = document.createElement('canvas');
