@@ -1,6 +1,6 @@
 import './Draw.css'
 import { useState, useEffect } from 'react';
-import { displayColorPixels, getDisplayState } from "../../generated-api-client/generated";
+import { displayColorPixels, getDisplayState } from "../../api/firmware/generated.ts";
 function HEXtoRGB(hex: string): [number, number, number] {
     hex = hex.replace(/^#/, "");
 
@@ -82,7 +82,7 @@ export default function Draw() {
             })) 
         });
     };
-    const downloadPNG = () => { // DO PÓŹNIEJSZEJ ZAMIANY W WYSLANIE
+    const downloadPNG = () => { 
         const canvas = document.createElement('canvas');
         canvas.width = gridSize;
         canvas.height = gridSize;
