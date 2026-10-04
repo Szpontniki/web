@@ -1,7 +1,8 @@
 import './Upload.css'
 import { useState, type ChangeEvent, type DragEvent } from 'react'
-import { displayColorPixels } from "../../generated-api-client/generated";
-
+import { displayColorPixels } from "../../api/firmware/generated.ts";
+import { processImage, type ProcessImageRequest} from '../../api/auxiliary/generated.ts';
+// import { Buffer } from 'buffer';
 export default function Upload() {  
         // FUNKCJE UPLOADU
 
@@ -11,82 +12,63 @@ export default function Upload() {
         // previewUrl przechowuje string który jest tymczasowym adresem URL wygenerowanym przez przeglądarke dla wyświetlania obrazu
         const [pixelArtUrl, setPixelArtUrl] = useState<string | null>(null);
 
-
-        // Funkcja zamieniająca na pixelart
-        const processToPixelArt = (file: File) => {
-            const canvasToPixelArray = async (ctx: CanvasRenderingContext2D) => {
-                const imageData = ctx.getImageData(0, 0, 32, 32);
-                const data = imageData.data;
-                const requestBody = {
-                    pixels: [] as { x: number; y: number; color: [number, number, number] }[]
-                };
-                for (let y = 0; y < 32; y++) {
-                    for (let x = 0; x < 32; x++) {
-                        const index = (y * 32 + x) * 4;
-
-                        const r = data[index];
-                        const g = data[index + 1]; 
-                        const b = data[index + 2];
-                            
-                        requestBody.pixels.push({
-                            x: x,
-                            y: y,
-                            color: [r, g, b]
-                        });
-                    }
-                }
+        // użycie fileToBase64(image)
+        const fileToBase64 = (file: File):Promise<string> => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const result = reader.result as string;
+                    const base64 = result.split(',')[1];
                 
-                try {
-                    const response = await displayColorPixels(requestBody);
+                    resolve(base64);
+                };
+                
 
-                    console.log(
-                        "[UPLOAD] ESP32 response:",
-                        response
-                    );
+                reader.onerror = (err) => reject(err);
+                reader.readAsDataURL(file);
+                
+            });
+        }
+        // Funkcja wysyłająca do pomocniczego API, requesta o zmiane na base64
+        const processToPixelArt = async (file: File): Promise<void> => {
+            try {
+                const imageBase64 = await fileToBase64(file);
+                const requestBody: ProcessImageRequest = { 
+                        width: 32, 
+                        height: 32, 
+                        imageBase64, 
+                };
+                
+                
 
-                    } catch (error) {
-                        console.error(
-                      "[UPLOAD] SEND ERROR:",
-                     error
+                const response = await processImage(requestBody);
+                if (response.status === 200) {
+                    const processedImage = response.data.pixels; 
+                    console.log("[UPLOAD] RESPONSE Pixels:", processedImage);
+                    // const base64ToString = Buffer.from(processedImage, 'base64').toString('utf-8');
+                    // console.log(base64ToString);
+                    setPixelArtUrl(
+                        `data:image/png;base64,${processedImage}`
                     );
-                }   
+                    displayColorPixels({
+                        pixels: response.data.pixels,
+                    })
+                }
+
+               
+            } catch (error) {
+                console.error("[UPLOAD] SEND ERROR:", Response);
+                if (error instanceof Error) {
+                    console.error("[Upload] Error message:", error.message);
+                
+                    console.error("[Upload] Error stack:", error.stack);
+                }
             }
-
-            const img = new Image();
-            img.src = URL.createObjectURL(file);
-
-            img.onload = () => {
-                // Tymczasowy canvas 32x32
-                const canvas = document.createElement('canvas');
-                canvas.width = 32;
-                canvas.height = 32;
-
-                const ctx = canvas.getContext('2d');
-                if (!ctx) return;
-
-
-                // Wyłączenie wygładzania
-                ctx.imageSmoothingEnabled = false;
-
-                // Rysowanie dużego obrazu na powierzchni 32x32
-                ctx.drawImage(img, 0, 0, 32, 32);
-
-                // Pobranie podglądu jako url 
-                const pixelatedDataUrl = canvas.toDataURL('image/png');
-                setPixelArtUrl(pixelatedDataUrl);
-
-                canvasToPixelArray(ctx);
-
-            
-            };
-
-            
         };
-            
+        // Funckja odbierająca od API base64 zpixelowanego obrazka, i wyświetlająca go na led gridzie
+       
 
-
-
-        
+                    
 
         // funkcja blokująca przesłanie plików innych niż zdjęcia
         const handleFile = (file: File) => {
