@@ -34,6 +34,10 @@ class BluetoothManager {
 
 		await this.commandCharacteristic.writeValueWithResponse(data);
 	}
+
+	public getIsConnected() {
+		return this.isConnected;
+	}
 }
 
 // TODO: perhaps it would be better to manage this variable via a React hook of some kind? `useBluetooth` maybe?
