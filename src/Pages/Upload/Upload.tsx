@@ -1,8 +1,9 @@
 import './Upload.css'
 import { useState, type ChangeEvent, type DragEvent } from 'react'
-import { displayColorPixels } from "../../api/firmware/generated.ts";
 import { processImage, type ProcessImageRequest} from '../../api/auxiliary/generated.ts';
+import { colorDisplayPixels } from '../../utils';
 // import { Buffer } from 'buffer';
+
 export default function Upload() {  
         // FUNKCJE UPLOADU
 
@@ -34,8 +35,9 @@ export default function Upload() {
             try {
                 const imageBase64 = await fileToBase64(file);
                 const requestBody: ProcessImageRequest = { 
-                        width: 32, 
-                        height: 32, 
+                        // TODO: this shouldn't be hardcoded.
+                        width: 2, 
+                        height: 2, 
                         imageBase64, 
                 };
                 
@@ -48,9 +50,9 @@ export default function Upload() {
                     // const base64ToString = Buffer.from(processedImage, 'base64').toString('utf-8');
                     // console.log(base64ToString);
                     setPixelArtUrl(
-                        `data:image/png;base64,${processedImage}`
+                        `data:image/png;base64,${response.data.imageBase64}`
                     );
-                    displayColorPixels({
+                    colorDisplayPixels({
                         pixels: response.data.pixels,
                     })
                 }
