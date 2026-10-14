@@ -1,6 +1,8 @@
 import './Draw.css'
 import { useState, useEffect } from 'react';
-import { displayColorPixels, getDisplayState } from "../../api/firmware/generated.ts";
+import { getDisplayState } from "../../api/firmware/generated.ts";
+import { colorDisplayPixels } from '../../utils';
+
 function HEXtoRGB(hex: string): [number, number, number] {
     hex = hex.replace(/^#/, "");
 
@@ -23,11 +25,11 @@ function RGBtoHEX(r: number, g: number, b: number): string {
 
 
 export default function Draw() {
-    const [gridSize] = useState<number>(32);
+    const [gridSize] = useState<number>(2);
     const [color, setColor] = useState<string>("#000000");
     const [isDrawing, setIsDrawing] = useState<boolean>(false);
     const [pixels, setPixels] = useState<string[]>(
-        Array(32 * 32).fill("#ffffff")
+        Array(gridSize * gridSize).fill("#ffffff")
     );
 
     useEffect(() => {
@@ -48,10 +50,6 @@ export default function Draw() {
         loadCurrentState();
     }, []);
 
-
-  
-    
-   
     // Zmiana koloru konkretnego pixela
     const paintCell = (index: number) => {
         const newPixels = [...pixels]; // te ... tworzy kopie tablicy pixels
@@ -59,7 +57,7 @@ export default function Draw() {
         setPixels(newPixels);
         const x = index % gridSize;
         const y = Math.floor(index / gridSize);
-        displayColorPixels({
+        colorDisplayPixels({
             pixels: [
                 {
                     x,
@@ -74,7 +72,7 @@ export default function Draw() {
     const resetGrid = () => {
         const newPixels = Array(gridSize * gridSize).fill("#ffffff") // te ... tworzy kopie tablicy pixels
         setPixels(newPixels);
-        displayColorPixels({
+        colorDisplayPixels({
             pixels: newPixels.map((pixel, index) => ({
                 x: index % gridSize,
                 y: Math.floor(index / gridSize),

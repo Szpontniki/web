@@ -1,0 +1,11 @@
+.direnv
+.git
+.github
+node_modules
+.envrc
+.gitignore
+.gitmodules
+flake.nix
+flake.lock
+LICENSE
+README.md
