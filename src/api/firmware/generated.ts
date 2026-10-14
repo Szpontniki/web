@@ -32,6 +32,18 @@ import type {
  */
 export type Color = number[];
 
+export interface Pixel {
+  x: number;
+  y: number;
+  /**
+     * @minItems 3
+     * @maxItems 3
+     * @items.minimum 0
+     * @items.maximum 255
+     */
+  color: number[];
+}
+
 export type ColorPixelsRequestPixelsItem = {
   x: number;
   y: number;
@@ -135,7 +147,7 @@ export const getDisplayColorPixelsUrl = () => {
 
 
 
-  return `/display/color-pixels`
+  return `http://localhost:3000/display/color-pixels`
 }
 
 /**
@@ -249,7 +261,7 @@ export const getGetDisplayStateUrl = () => {
 
 
 
-  return `/display/current-state`
+  return `http://localhost:3000/display/current-state`
 }
 
 /**
@@ -279,7 +291,7 @@ export const getDisplayState = async ( options?: RequestInit): Promise<getDispla
 
 export const getGetDisplayStateQueryKey = () => {
     return [
-    `/display/current-state`
+    `http://localhost:3000/display/current-state`
     ] as const;
     }
 

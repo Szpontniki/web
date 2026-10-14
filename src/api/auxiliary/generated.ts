@@ -15,14 +15,47 @@ import type {
   UseMutationResult
 } from '@tanstack/react-query';
 
-export interface ProessImageRequest {
+/**
+ * @minItems 3
+ * @maxItems 3
+ * @items.minimum 0
+ * @items.maximum 255
+ */
+export type Color = number[];
+
+export interface Pixel {
+  x: number;
+  y: number;
+  /**
+     * @minItems 3
+     * @maxItems 3
+     * @items.minimum 0
+     * @items.maximum 255
+     */
+  color: number[];
+}
+
+export interface ProcessImageRequest {
   width: number;
   height: number;
   imageBase64: string;
 }
 
+export type ProcessImageResponsePixelsItem = {
+  x: number;
+  y: number;
+  /**
+     * @minItems 3
+     * @maxItems 3
+     * @items.minimum 0
+     * @items.maximum 255
+     */
+  color: number[];
+};
+
 export interface ProcessImageResponse {
   imageBase64: string;
+  pixels: ProcessImageResponsePixelsItem[];
 }
 
 export type ProcessImageBody = {
@@ -31,8 +64,21 @@ export type ProcessImageBody = {
   imageBase64: string;
 };
 
+export type ProcessImage200PixelsItem = {
+  x: number;
+  y: number;
+  /**
+     * @minItems 3
+     * @maxItems 3
+     * @items.minimum 0
+     * @items.maximum 255
+     */
+  color: number[];
+};
+
 export type ProcessImage200 = {
   imageBase64: string;
+  pixels: ProcessImage200PixelsItem[];
 };
 
 export type processImageResponse200 = {
@@ -59,7 +105,7 @@ export const getProcessImageUrl = () => {
 
 
 
-  return `/process/image`
+  return `http://localhost:3001/process/image`
 }
 
 /**

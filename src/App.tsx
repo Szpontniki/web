@@ -2,12 +2,14 @@ import './App.css'
 import Draw from './Pages/Draw/Draw.tsx'
 import Upload from './Pages/Upload/Upload.tsx'
 import Home from './Pages/Home/Home.tsx'
+import Login from './Pages/Login/Login.tsx'
 import webLogo from './assets/webLogo.png'
 import gitLogo from './assets/githubLogo.webp'
 import { BrowserRouter, Link, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './components/AuthContext.tsx'
+import ProtectedRoute from './components/ProtectedRoute.tsx'
 
 function App() {
-
   return (
     <>
   
@@ -15,18 +17,22 @@ function App() {
       <header>
         <img src={webLogo} alt='Flashing Lights Logo' className='logo' />
       </header>
-      <BrowserRouter>
-        <nav> 
-          <Link to = "/Draw" className='navLink'>Rysowanie</Link>
-          <Link to = "/Upload" className='navLink'>Wgranie</Link>
-        </nav>
-        <Routes>
-          <Route path='/' element={< Home / >} />
-          <Route path='/Draw' element={<Draw / >} /> 
-          <Route path='/Upload' element={<Upload / >} />
-        </Routes>
-      </BrowserRouter>
-
+      <AuthProvider>
+        <BrowserRouter>
+          <nav> 
+            <Link to = "/Draw" className='navLink'>Rysowanie</Link>
+            <Link to = "/Upload" className='navLink'>Wgranie</Link>
+          </nav>
+          <Routes>
+            <Route path='/' element={< Login / >} />
+            <Route element={<ProtectedRoute />}>
+              <Route path='/Home' element={< Home / >} />
+              <Route path='/Draw' element={<Draw / >} /> 
+              <Route path='/Upload' element={<Upload / >} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
       <footer> 
         <h4>Made by Szpontniki 2026</h4>
         <a href="https://github.com/Szpontniki" target='_blank'>
