@@ -49,7 +49,7 @@ export default function Login() {
                         required
                         minLength={8}
                         maxLength={10} /> <br />
-                <button type="submit">Log in</button>
+                <button className="SubmitButton" type="submit">Log in</button>
                 </div>
                 </div>
             </form>

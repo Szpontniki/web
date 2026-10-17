@@ -42,7 +42,7 @@
     border: 2px solid black;
 }
 
-button {
+.SubmitButton {
     width: 100%;
     padding: 15px;
     border-radius: 20px;
