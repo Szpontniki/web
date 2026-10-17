@@ -2,6 +2,7 @@ import './Upload.css'
 import { useState, type ChangeEvent, type DragEvent } from 'react'
 import { processImage, type ProcessImageRequest} from '../../api/auxiliary/generated.ts';
 import { colorDisplayPixels } from '../../utils';
+import { Link } from 'react-router-dom';
 // import { Buffer } from 'buffer';
 
 export default function Upload() {  
@@ -35,7 +36,7 @@ export default function Upload() {
             try {
                 const imageBase64 = await fileToBase64(file);
                 const requestBody: ProcessImageRequest = { 
-                        // TODO: this shouldn't be hardcoded.
+                        // TODO: this shouldn't be hardcoded. hardcore :fire:
                         width: 2, 
                         height: 2, 
                         imageBase64, 
@@ -67,8 +68,7 @@ export default function Upload() {
                 }
             }
         };
-        // Funckja odbierająca od API base64 zpixelowanego obrazka, i wyświetlająca go na led gridzie
-       
+        
 
                     
 
@@ -106,6 +106,11 @@ export default function Upload() {
         return (
             <main>
                 {/* DROPZONE */}
+                <button className="history">
+        <Link to="/History" className="navLink">
+            Historia
+        </Link>
+    </button>
                 <section 
                 className='dropzone' 
                 onDragOver={handleDragOver}
@@ -133,6 +138,8 @@ export default function Upload() {
                             <p>Nazwa pliku: {selectedImage?.name}</p>
                     </div>
                 )}
+                
+    
 
             </main>
 
