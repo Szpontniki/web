@@ -8,7 +8,6 @@ import type {
 
 export default function History() {
     const [photos, setPhotos] = useState<GetLibraryEntries200EntriesItem[]>([]);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
     
     useEffect(() => {
         const getPhotos = async () => {
