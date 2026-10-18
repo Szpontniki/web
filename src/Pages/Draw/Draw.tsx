@@ -2,7 +2,7 @@ import './Draw.css'
 import { useState, useEffect } from 'react';
 import { getDisplayState } from "../../api/firmware/generated.ts";
 import { colorDisplayPixels } from '../../utils';
-import logo from '../../assets/draw.png'
+import logo from '../../assets/draw.webp'
 function HEXtoRGB(hex: string): [number, number, number] {
     hex = hex.replace(/^#/, "");
 

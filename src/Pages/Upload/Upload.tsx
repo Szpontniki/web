@@ -2,7 +2,7 @@ import './Upload.css'
 import { useState, type ChangeEvent, type DragEvent } from 'react'
 import { processImage, type ProcessImageRequest} from '../../api/auxiliary/generated.ts';
 import { colorDisplayPixels } from '../../utils';
-import logo from '../../assets/upload.png'
+import logo from '../../assets/upload.webp'
 
 export default function Upload() {  
         // FUNKCJE UPLOADU

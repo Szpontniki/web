@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Login.css'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/authentication/AuthContext';
-import logo from '../../assets/login.png'
+import logo from '../../assets/login.webp'
 
 export default function Login() {
 

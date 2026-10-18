@@ -5,7 +5,7 @@ import { displayColorPixels} from '../../api/firmware/generated';
 import type {
     GetLibraryEntries200EntriesItem
 } from '../../api/auxiliary/generated';
-import logo from '../../assets/recent.png'
+import logo from '../../assets/recent.webp'
 
 export default function Recent() {
     const [photos, setPhotos] = useState<GetLibraryEntries200EntriesItem[]>([]);

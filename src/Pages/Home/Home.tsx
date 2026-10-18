@@ -1,5 +1,5 @@
 import './Home.css'
-import logo from '../../assets/home.png'
+import logo from '../../assets/home.webp'
 export default function Home() {
     return (
         <>
