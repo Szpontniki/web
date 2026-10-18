@@ -16,16 +16,17 @@
     user-select: none;
     -webkit-user-drag: none;
     box-shadow: 0 0 25px rgba(63, 71, 74, 0.2), 0 10px 30px rgba(0,0,0,0.5);
-    width: 550px;
-    height: 550px;
-    border: 3px solid #333;
+    width: 512px;
+    height: 512px;
+    border: 3px solid #000000;
 }
-.drawContainer {
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
     padding: 0px;
+    margin-bottom: 30px;
 }
 .controls {
     display: flex;
@@ -37,9 +38,9 @@
     border: 1px solid #000000;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);    
 }
-
 .controls label {
     display: flex;
+    
     align-items: center;
 }
 .controls input[type="color"]{
@@ -50,14 +51,13 @@
     background: none;
 
 }
-
 .resetButton {
     padding: 8px 16px;
     font-weight: 600;
-    border: none;
+    border: 2px solid black;
     cursor: pointer;
     transition: all 0.2 ease;
-    background-color: #334155;
+    background-color: #737373;
     color: #F8F8F8;
 }
 .resetButton:hover {
@@ -66,10 +66,10 @@
 .downloadButton {
     padding: 8px 16px;
     font-weight: 600;
-    border: none;
+    border: solid black;
     cursor: pointer;
     transition: all 0.2 ease;
-    background-color: #334155;
+    background-color: #737373;
     color: #F8F8F8;
 }
 .downloadButton:hover {
@@ -77,5 +77,4 @@
 }
 .cell {
     border: 1px solid rgb(0, 0, 0, 0.15);
-
 }

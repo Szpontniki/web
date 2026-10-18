@@ -109,7 +109,6 @@ export default function Draw() {
                     <img src={logo} alt='recent' />
                 </header>
             <main
-                className='drawContainer'
                 onMouseDown={() => setIsDrawing(true)}
                 onMouseUp={ () => setIsDrawing(false)}
                 onMouseLeave={() => setIsDrawing(false)}

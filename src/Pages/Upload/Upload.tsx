@@ -131,15 +131,12 @@ export default function Upload() {
                 </section>
                 {pixelArtUrl && (
                     <div className='previewContainer'>
-                            <h3>Podgląd:</h3>
+                            <h3>Preview:</h3>
                             {/* Odpala ten pixelArtUrl jako podgląd, tak jakby odpala strone w stronie xd */}
                             <img src={pixelArtUrl} alt='Podgląd' className='imagePreview' /> 
-                            <p>Nazwa pliku: {selectedImage?.name}</p>
-                    </div>
+                            <p>File: {selectedImage?.name}</p>
+                    </div>                
                 )}
-                
-    
-
             </main>
             </>
 

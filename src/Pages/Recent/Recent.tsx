@@ -51,14 +51,14 @@ export default function Recent() {
                                 className='image'
                             />
                         </div>
-                        <p>Typ: {photo.fileType}</p>
+                        
 
                         <p>
-                            Data:{' '}
+                            Date:{' '}
                             {new Date(photo.createdAt).toLocaleString()}
                         </p>
 
-                        <p>Liczba pikseli: {photo.processedOutput.length}</p>
+                    
                         <button className='displayButton'onClick={() => displayColorPixels({ 
                             pixels: photo.processedOutput
                         })}>
