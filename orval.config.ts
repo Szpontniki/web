@@ -1,9 +1,8 @@
 import { defineConfig } from "orval";
 
-// TODO: this should probably be definable via an environment variable?
 const baseAPIURLs = {
-  auxiliary: "http://localhost:3001/",
-  firmware: "http://localhost:3000/",
+  auxiliary: process.env.AUXILIARY_API_URL ?? "http://localhost:3001/",
+  firmware: process.env.AUXILIARY_FIRMWARE_URL ?? "http://localhost:3000/",
 };
 
 export default defineConfig({

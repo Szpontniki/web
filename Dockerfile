@@ -1,5 +1,8 @@
 FROM node:22-alpine AS builder
 
+ARG AUXILIARY_API_URL
+ARG FIRMWARE_API_URL
+
 WORKDIR /app
 
 COPY package*.json ./
@@ -8,7 +11,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run init
+RUN AUXILIARY_API_URL=${AUXILIARY_API_URL} FIRMWARE_API_URL=${FIRMWARE_API_URL} npm run init
 
 RUN npm run build
 

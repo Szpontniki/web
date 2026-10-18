@@ -34,6 +34,9 @@ jobs:
         with:
           context: .
           push: true
+          # FIRMWARE_API_URL will be added here in the future.
+          build-args: |
+            AUXILIARY_API_URL=https://szpontniki.khenzii.dev/auxiliary-api/
           tags: |
             ${{ inputs.tags }}
 
