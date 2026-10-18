@@ -2,8 +2,7 @@ import './Upload.css'
 import { useState, type ChangeEvent, type DragEvent } from 'react'
 import { processImage, type ProcessImageRequest} from '../../api/auxiliary/generated.ts';
 import { colorDisplayPixels } from '../../utils';
-import { Link } from 'react-router-dom';
-// import { Buffer } from 'buffer';
+import logo from '../../assets/upload.png'
 
 export default function Upload() {  
         // FUNKCJE UPLOADU
@@ -104,23 +103,23 @@ export default function Upload() {
 
         // STRONA
         return (
+            <>
+                <header  className='uploadHead'>
+                <img src={logo} alt='recent' />
+                </header>
             <main>
                 {/* DROPZONE */}
-                <button className="history">
-        <Link to="/History" className="navLink">
-            Historia
-        </Link>
-    </button>
+                
                 <section 
                 className='dropzone' 
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 >
-                    <p> Przeciągnij i upuść zdjęcie tutaj </p>
-                    <span> lub </span>
+                    <p> drag or drop photo here </p>
+                    <span> or </span>
                     <br />
                     <label htmlFor='file-input' className='fileLabel'>
-                        Wybierz plik z komputera
+                         <p> Choose a file from device </p>
                     </label>
                     <input
                     id='file-input'
@@ -142,6 +141,7 @@ export default function Upload() {
     
 
             </main>
+            </>
 
         )
 

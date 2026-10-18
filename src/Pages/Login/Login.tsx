@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './Login.css'
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../components/AuthContext';
+import { useAuth } from '../../utils/authentication/AuthContext';
+import logo from '../../assets/login.png'
 
 export default function Login() {
 
@@ -23,11 +24,11 @@ export default function Login() {
 
     return (
         <>
-        <div className='main'>
+        <main>
             <form onSubmit={handleLogin}>
                 <div className='formContainer'>
                     <div className='formHeader'>
-                        <h3> Log In</h3>
+                    <img src={logo} alt='recent' />
                     </div>
                     <div className='inputContainer'>
                         <input 
@@ -53,7 +54,7 @@ export default function Login() {
                 </div>
                 </div>
             </form>
-        </div>
+        </main>
         </>
     )
 }

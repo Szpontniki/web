@@ -1,0 +1,11 @@
+
+.homeHead {
+    width: 100%;
+    background-color: black;
+    z-index: 99;    
+}
+.homeHead img {
+    width: 150px;
+    height: 50px;
+    image-rendering: pixelated;
+}

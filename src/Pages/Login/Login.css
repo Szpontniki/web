@@ -1,8 +1,18 @@
 * {
     font-family: 'Courier New', Courier, monospace;
 }
+.loginHead {
+    width: 100%;
+    background-color: black;
+    z-index: 99;    
+}
+.loginHead img {
+    width: 150px;
+    height: 50px;
+    image-rendering: pixelated;
+}
+
 .main {
-    height: 60vh;
     margin: 0px;
     padding: 0;
     justify-content: center;
@@ -11,13 +21,12 @@
     align-items: center;
 }
 .formContainer {
-    background-color: azure;
+    background-color: rgb(0, 0, 0);
     max-width: 320px;
     height: 350px;
     width: 100%;
     padding: 40px;
     box-shadow: 0 0 10px black;
-    border-radius: 35px;
     text-align: center;
 }
 .formHeader {
@@ -34,7 +43,7 @@
 .inputContainer input {
     padding: 15px 20px;
     width: 200px;
-    border-radius: 30px;
+    
     margin-bottom: 20px;
     border: 2px solid grey;
 }
@@ -43,8 +52,8 @@
 }
 
 .SubmitButton {
-    width: 100%;
+    width: 200px;
     padding: 15px;
-    border-radius: 20px;
+    
     cursor: pointer;
 }

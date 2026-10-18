@@ -1,13 +1,26 @@
 main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 20px;
     margin-top: 30px;
 }
+.uploadHead {
+    width: 100%;
+    background-color: black;
+    z-index: 99;    
+}
+.uploadHead img {
+    width: 200px;
+    height: 50px;
+    image-rendering: pixelated;
+}
 .dropzone {
+    justify-content: center;
+    align-items: center;
     border: 2px dashed #909193;
-    border-radius: 12px;
+
     padding: 40px;
     text-align: center;
     background-color: #f8fafc;
@@ -31,7 +44,6 @@ main {
 }
 .previewContainer {
     border: 2px #f8fafc;
-    border-radius: 12px;
     padding: 40px;
     text-align: center;
     background-color: #f8fafc;

@@ -1,3 +1,14 @@
+
+.drawHead {
+    width: 100%;
+    background-color: black;
+    z-index: 99;  
+}
+.drawHead img {
+    width: 150px;
+    height: 50px;
+    image-rendering: pixelated;
+}
 .pixelGrid {
     display: grid;
     grid-template-columns: repeat(var(--sz), 1fr);
@@ -14,7 +25,7 @@
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    padding: 30px;
+    padding: 0px;
 }
 .controls {
     display: flex;
@@ -24,7 +35,6 @@
     padding: 16px 24px;
     background: #ababaf;
     border: 1px solid #000000;
-    border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);    
 }
 
@@ -36,7 +46,6 @@
     border: none;
     width: 36px;
     height: 36px;
-    border-radius: 50%;
     cursor: pointer;
     background: none;
 
@@ -46,7 +55,6 @@
     padding: 8px 16px;
     font-weight: 600;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2 ease;
     background-color: #334155;
@@ -59,7 +67,6 @@
     padding: 8px 16px;
     font-weight: 600;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2 ease;
     background-color: #334155;

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getLibraryEntries } from '../../../api/auxiliary/generated';
-import './History.css'
-import { displayColorPixels} from '../../../api/firmware/generated';
+import { getLibraryEntries } from '../../api/auxiliary/generated';
+import './Recent.css'
+import { displayColorPixels} from '../../api/firmware/generated';
 import type {
     GetLibraryEntries200EntriesItem
-} from '../../../api/auxiliary/generated';
+} from '../../api/auxiliary/generated';
+import logo from '../../assets/recent.png'
 
-export default function History() {
+export default function Recent() {
     const [photos, setPhotos] = useState<GetLibraryEntries200EntriesItem[]>([]);
     
     useEffect(() => {
@@ -28,22 +29,28 @@ export default function History() {
     }, []);
 
     return (
+        <>
+            <header className='recentHead'>
+                <img src={logo} alt='recent' />
+            </header>
         <main>
-            <h1>Historia</h1>
 
             {photos.length === 0 && (
-                <p>Brak zdjęć w historii.</p>
+                <p>No recent photos.</p>
             )}
             <div className='imageContainer'>
                 {photos.map((photo) => (
             
                     <article key={photo.id} className='containerContent'>
-                        <img
-                            src={photo.fileReference.publicUrl}
-                            alt="Przetworzony obraz"
-                            width={200}
-                        />
-
+                        <div>
+                            <img
+                                src={photo.fileReference.publicUrl}
+                                alt="Przetworzony obraz"
+                                width={256}
+                                height={256}
+                                className='image'
+                            />
+                        </div>
                         <p>Typ: {photo.fileType}</p>
 
                         <p>
@@ -52,7 +59,7 @@ export default function History() {
                         </p>
 
                         <p>Liczba pikseli: {photo.processedOutput.length}</p>
-                        <button onClick={() => displayColorPixels({ 
+                        <button className='displayButton'onClick={() => displayColorPixels({ 
                             pixels: photo.processedOutput
                         })}>
                             SHOW ON TERMINAL
@@ -61,5 +68,6 @@ export default function History() {
                 ))}
             </div>
         </main>
+    </>
     );
 }

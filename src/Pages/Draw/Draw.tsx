@@ -2,7 +2,7 @@ import './Draw.css'
 import { useState, useEffect } from 'react';
 import { getDisplayState } from "../../api/firmware/generated.ts";
 import { colorDisplayPixels } from '../../utils';
-
+import logo from '../../assets/draw.png'
 function HEXtoRGB(hex: string): [number, number, number] {
     hex = hex.replace(/^#/, "");
 
@@ -105,6 +105,9 @@ export default function Draw() {
     
     return (
         <>
+                <header className='drawHead'>
+                    <img src={logo} alt='recent' />
+                </header>
             <main
                 className='drawContainer'
                 onMouseDown={() => setIsDrawing(true)}
@@ -113,7 +116,7 @@ export default function Draw() {
             >
                 <section className='controls'>
                     <label>
-                        <h4> Kolor: </h4>
+                        <h4> Color: </h4>
                         <input
                         type='color'
                         className='color'
@@ -123,7 +126,7 @@ export default function Draw() {
                     </label>
                     
                     <button className='resetButton' onClick={resetGrid}>
-                        Reset
+                        <p>Reset</p>
                     </button>
                 </section>
 
@@ -147,7 +150,7 @@ export default function Draw() {
                         ))}
                     </section>
                 <button className='downloadButton' onClick={downloadPNG}>
-                    Pobierz png
+                    <p> Download PNG file </p>
                 </button>
                     
 
