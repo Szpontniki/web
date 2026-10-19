@@ -2,7 +2,7 @@ import { defineConfig } from "orval";
 
 const baseAPIURLs = {
   auxiliary: process.env.AUXILIARY_API_URL ?? "http://localhost:3001/",
-  firmware: process.env.AUXILIARY_FIRMWARE_URL ?? "http://localhost:3000/",
+  firmware: process.env.FIRMWARE_URL ?? "http://localhost:3000/",
 };
 
 export default defineConfig({
@@ -23,7 +23,7 @@ export default defineConfig({
   },
   
 
-  firmare: {
+  firmware: {
     input: {
       target: "./api-schema/firmware/openapi.yaml",
       parserOptions: {
