@@ -2,7 +2,7 @@ import { defineConfig } from "orval";
 
 const baseAPIURLs = {
   auxiliary: process.env.AUXILIARY_API_URL ?? "http://localhost:3001/",
-  firmware: process.env.FIRMWARE_URL ?? "http://localhost:3000/",
+  firmware: process.env.FIRMWARE_API_URL ?? "http://localhost:3000/",
 };
 
 export default defineConfig({
