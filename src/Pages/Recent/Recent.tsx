@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getLibraryEntries } from '../../api/auxiliary/generated';
 import './Recent.css'
-import { displayColorPixels} from '../../api/firmware/generated';
+import { colorDisplayPixels } from '../../utils';
 import type {
     GetLibraryEntries200EntriesItem
 } from '../../api/auxiliary/generated';
@@ -59,7 +59,7 @@ export default function Recent() {
                         </p>
 
                     
-                        <button className='displayButton'onClick={() => displayColorPixels({ 
+                        <button className='displayButton'onClick={() => colorDisplayPixels({ 
                             pixels: photo.processedOutput
                         })}>
                             SHOW ON TERMINAL
